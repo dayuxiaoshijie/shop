@@ -3,10 +3,16 @@
   <VueHeader></VueHeader>
 <div class="nav-breadcrumb-wrap">
   <div class="container">
-    <nav class="nav-breadcrumb">
+    <!-- <nav class="nav-breadcrumb">
       <a href="/">首页</a>
       <span>商品列表</span>
-    </nav>
+    </nav> -->
+    <VueBread>
+    <template v-slot:bread>
+        <a href="/">首页</a>
+        <span>商品列表</span>
+    </template>
+    </VueBread>
   </div>
 </div>
 <div class="accessory-result-page accessory-page">
@@ -96,6 +102,8 @@
     </div>
   </div>
 </div>
+<!-- 调用遮罩层组件，绑定属性传递给子元素-->
+<modal :isshow="show" @close="testshow"></modal>
   <!-- 调用底部组件 -->
   <VueFooter></VueFooter>
 </div>
@@ -108,13 +116,28 @@ import '../assets/css/product.css'
 //倒入头部公共组件
 import VueHeader from '@/components/VueHeader'
 import VueFooter from '@/components/VueFooter'
+import VueBread from '@/components/VueBread'
+import Modal from '@/components/Modal'
 export default {
+    data(){
+      return {
+        show:true
+      }
+  },
+    methods:{
+        testshow(){
+          this.show = false;
+        }
+    },
    // 声明组件
   components:{
     //声明头部组件
     VueHeader,
     //声明底部组件
-    VueFooter
+    VueFooter,
+    //声明面包屑组件
+    VueBread,
+    Modal
   }
 }
 </script>
